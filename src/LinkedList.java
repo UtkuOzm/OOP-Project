@@ -23,7 +23,7 @@ public class LinkedList {
     }
     public void Writer(){
         Node temp = head;
-        while (temp.next!=null){
+        while (temp!=null){
             System.out.println(temp.CustomerNo +" "+temp.customerData.toString());
             temp=temp.next;
         }
