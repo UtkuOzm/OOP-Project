@@ -1,7 +1,7 @@
-public class LinkedList {
+public class Linked {
     Node head;
 
-    public LinkedList(){
+    public Linked(){
         head=null;
     }
     public void addHead(int CustomerNo,CustomerData customerData){

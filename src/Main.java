@@ -11,11 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
         String fileRoot = "Firma.txt";
-        LinkedList Customers=new LinkedList();
+        Linked Customers=new Linked();
         ArrayList<ArrayList<Integer>> PointList = new ArrayList<>();
         try {
             File file = new File(fileRoot);
-            
+
             Scanner scanner = new Scanner(file);
             String line = scanner.nextLine();
             String[] firstLine=line.split(",");
@@ -43,7 +43,7 @@ public class Main {
                 line = scanner.nextLine();
                 RatingLine=line.split(",");
                 FirstList = new ArrayList<>();
-                FirstList.add(Integer.parseInt(FirstCustomerLine[0]));
+                FirstList.add(Integer.parseInt(CustomerLine[0]));
                 for (String rating:RatingLine){
                     FirstList.add(Integer.parseInt(rating));
                 }
@@ -56,5 +56,9 @@ public class Main {
             e.printStackTrace();
         }
         Customers.Writer();
+        for (ArrayList rating:PointList){
+            System.out.println(rating);
+        }
+
     }
 }
