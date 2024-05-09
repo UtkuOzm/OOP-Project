@@ -68,4 +68,14 @@ public class CustomerData {
         this.occupation = occupation;
     }
 
+    @Override
+    public String toString() {
+        return "CustomerData{" +
+                "Name='" + Name + '\'' +
+                ", Surname='" + Surname + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", occupation='" + occupation + '\'' +
+                '}';
+    }
 }
