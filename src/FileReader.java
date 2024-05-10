@@ -6,18 +6,22 @@ import java.util.Scanner;
 
 public class FileReader {
     String fileRoot = "Firma.txt";
+    Linked Customers=new Linked();
+    ArrayList<ArrayList<Integer>> PointList = new ArrayList<>();
+    int NumberOfProducts;
 
+    public FileReader(String fileRoot) {
+        this.fileRoot = fileRoot;
+    }
 
-    public static void reader(String fileRoot){
-        Linked Customers=new Linked();
-        ArrayList<ArrayList<Integer>> PointList = new ArrayList<>();
+    public void reader(){
         try {
             File file = new File(fileRoot);
 
             Scanner scanner = new Scanner(file);
             String line = scanner.nextLine();
             String[] firstLine=line.split(",");
-            int NumberOfProducts=Integer.parseInt(firstLine[0]);
+            NumberOfProducts=Integer.parseInt(firstLine[0]);
             List<String> NamesOfProducts=new ArrayList<>();
             for (int i = 1; i < firstLine.length; i++){
                 NamesOfProducts.add(firstLine[i]);
@@ -57,5 +61,6 @@ public class FileReader {
         for (ArrayList rating:PointList){
             System.out.println(rating);
         }
+
     }
 }
