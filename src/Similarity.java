@@ -1,7 +1,4 @@
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Similarity {
 
     public static void similartyCalc(FileReader file,int[] ratings,ArrayList<Integer> SimilarityList){

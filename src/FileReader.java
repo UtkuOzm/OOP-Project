@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
-    String fileRoot = "Firma.txt";
+    String fileRoot;
     Linked Customers=new Linked();
     ArrayList<ArrayList<Integer>> PointList = new ArrayList<>();
     int NumberOfProducts;
