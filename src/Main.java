@@ -1,44 +1,91 @@
-import java.util.Arrays;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-
         String fileRoot = "Firma.txt";
         FileReader file = new FileReader(fileRoot);
-        file.reader();
         Scanner scanner = new Scanner(System.in);
-        int[] ratings = new int[file.NumberOfProducts];
-        for (int i = 0; i < file.NumberOfProducts - 1; i++) {
-            System.out.println("Ürün " + (i + 1) + " için puanı giriniz: ");
-            ratings[i] = Integer.parseInt(scanner.nextLine());
+        String input= " ";
+        while (!input.equals("0")) {
+            if (input.equals("1")) {
+                file.reader();
+            }
+            // Klavyeden yeni bir müşteri girişi sağlanması
+            else if (input.equals("2")) {
+                System.out.println("Yeni bir müşteri girişi yapmak için bilgileri giriniz:");
+                Node temp = file.Customers.head;
+                int counter = 1;
+                while (temp.next != null) {
+                    counter++;
+                    temp.next = temp;
+                }
+                Node newNode = new Node();
+                temp.next = newNode;
+                newNode.CustomerNo = counter + 1;
+                System.out.print("Adı: ");
+                newNode.customerData.setName(scanner.nextLine());
+
+                System.out.print("Soyadı: ");
+                newNode.customerData.setSurname(scanner.nextLine());
+
+                System.out.print("Ülke: ");
+                newNode.customerData.setCountry(scanner.nextLine());
+
+                System.out.print("Şehir: ");
+                newNode.customerData.setCity(scanner.nextLine());
+
+                System.out.print("Meslek: ");
+                newNode.customerData.setOccupation(scanner.nextLine());
+
+                // Klavyeden ilk (n-1) ürünler için puanlama yapılması
+                ArrayList<Integer> ratings = new ArrayList<>();
+                for (int i = 0; i < file.NumberOfProducts; i++) {
+                    System.out.print("Ürün " + (i + 1) + " için puan: ");
+                    ratings.add(Integer.parseInt(scanner.nextLine()));
+                }
+
+                ArrayList<Integer> SimilarityList = new ArrayList<>();
+                Similarity.similartyCalc(file, ratings, SimilarityList);
+                System.out.println("Tahmin edilen son ürün puanı: " + SimilarityList.getLast());
+                System.out.println("Tahmin edilen puanlar: " + ratings);
+                ratings.addFirst(newNode.CustomerNo);
+                file.PointList.add(ratings);
+            }
+
+            else if (input.equals("3")) {
+                // 3) Her bir ürün için ortalama derecelendirme puanını hesaplayarak yazdırma.
+                calculateAndPrintAverageRatings(file);
+            }
+            else if (input.equals("4")) {
+                // 4) Her bir ürün için sadece ülkesi "Turkey" olan müşterileri dikkate alarak
+                // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+                calculateAndPrintAverageRatingsForTurkey(file, file.Customers);
+            }
+            else if (input.equals("5")){
+                // 5) Her bir ürün için ülkesi "Turkey" dışındaki değerler olan müşterileri
+                // dikkate alarak elde edilen ortalama derecelendirme puanını hesaplayarak
+                // yazdırma.
+                calculateAndPrintAverageRatingsForNonTurkish(file, file.Customers);
+            }
+
+            else if (input.equals("6")) {
+
+                // 6) Her bir ürün için sadece mesleği "Doctor" olan müşteriler dikkate alınarak
+                // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+                calculateAndPrintAverageRatingsForDoctors(file, file.Customers);
+            }
+            else if (input.equals("7")) {
+                // 7) Müşteri bilgileri bağlı listesini baştan sonra ekrana yazdırma.
+                file.Customers.Writer();
+            }
+            else if (input.equals("8")){
+                // 8) İki boyutlu diziyi ekrana yazdırma.
+                printRatingsArray(file);
+            }
+            input=scanner.nextLine();
         }
-        ArrayList<Integer> SimilarityList = new ArrayList<>();
-        Similarity.similartyCalc(file, ratings, SimilarityList);
-        System.out.println("Tahmin edilen puanlar: " + Arrays.toString(ratings));
-
-        // 3) Her bir ürün için ortalama derecelendirme puanını hesaplayarak yazdırma.
-        calculateAndPrintAverageRatings(file);
-
-        // 4) Her bir ürün için sadece ülkesi "Turkey" olan müşterileri dikkate alarak
-        // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
-        calculateAndPrintAverageRatingsForTurkey(file,file.Customers);
-
-        // 5) Her bir ürün için ülkesi "Turkey" dışındaki değerler olan müşterileri
-        // dikkate alarak elde edilen ortalama derecelendirme puanını hesaplayarak
-        // yazdırma.
-        calculateAndPrintAverageRatingsForNonTurkish(file,file.Customers);
-
-        // 6) Her bir ürün için sadece mesleği "Doctor" olan müşteriler dikkate alınarak
-        // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
-        calculateAndPrintAverageRatingsForDoctors(file,file.Customers);
-
-        // 7) Müşteri bilgileri bağlı listesini baştan sonra ekrana yazdırma.
-        file.Customers.Writer();
-
-        // 8) İki boyutlu diziyi ekrana yazdırma.
-        printRatingsArray(file);
     }
 
     // 3) Her bir ürün için ortalama derecelendirme puanını hesaplayarak yazdırma.

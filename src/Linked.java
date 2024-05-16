@@ -34,7 +34,11 @@ class Node{
     int CustomerNo;
     CustomerData customerData;
     Node next;
-
+    public Node(){
+        CustomerNo=-1;
+        customerData=new CustomerData();
+        next=null;
+    }
     public Node(int customerNo, CustomerData customerData) {
         CustomerNo = customerNo;
         this.customerData = customerData;
