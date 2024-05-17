@@ -165,7 +165,7 @@ public class Main {
         }
         for (int i = 0; i < file.NumberOfProducts; i++) {
             double averageRating = sumRatings[i] / doctorCustomerCount;
-            System.out.println("Doctor customers' average rating for product 5: " + (i + 1) +  averageRating);
+            System.out.println("Doctor customers' average rating for product : " + (i + 1) +  averageRating);
         }
     }
 
