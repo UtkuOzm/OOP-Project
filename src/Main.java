@@ -12,9 +12,9 @@ public class Main {
             switch (input) {
                 case "1" -> file.reader();
 
-                // Klavyeden yeni bir müşteri girişi sağlanması
+                // A new customer entry is activated from the keyboard
                 case "2" -> {
-                    System.out.println("Yeni bir müşteri girişi yapmak için bilgileri giriniz:");
+                    System.out.println("Enter information to log in as a new customer:");
                     Node temp = file.Customers.head;
                     int counter = 1;
                     while (temp.next != null) {
@@ -24,62 +24,61 @@ public class Main {
                     Node newNode = new Node();
                     temp.next = newNode;
                     newNode.CustomerNo = counter + 1;
-                    System.out.print("Adı: ");
+                    System.out.print("Name: ");
                     String name=scanner.nextLine();
                     newNode.customerData.setName(name);
 
-                    System.out.print("Soyadı: ");
+                    System.out.print("Surname: ");
                     String surname=scanner.nextLine();
                     newNode.customerData.setSurname(surname);
 
-                    System.out.print("Ülke: ");
+                    System.out.print("Country: ");
                     String country=scanner.nextLine();
                     newNode.customerData.setCountry(country);
 
-                    System.out.print("Şehir: ");
+                    System.out.print("City: ");
                     String city=scanner.nextLine();
                     newNode.customerData.setCity(city);
 
-                    System.out.print("Meslek: ");
+                    System.out.print("Occupation: ");
                     String occupation=scanner.nextLine();
                     newNode.customerData.setOccupation(occupation);
 
-                    // Klavyeden ilk (n-1) ürünler için puanlama yapılması
+                    // Scoring for the first (n-1) products from the keyboard
                     ArrayList<Integer> ratings = new ArrayList<>();
                     for (int i = 0; i < file.NumberOfProducts-1; i++) {
-                        System.out.print("Ürün " + (i + 1) + " için puan: ");
+                        System.out.print("Score for " + (i + 1) + " product: ");
                         ratings.add(Integer.parseInt(scanner.nextLine()));
                     }
 
                     ArrayList<Integer> SimilarityList = new ArrayList<>();
                     Similarity.similartyCalc(file, ratings, SimilarityList);
-                    System.out.println("Tahmin edilen son ürün puanı: " + SimilarityList.getLast());
-                    System.out.println("Tahmin edilen puanlar: " + ratings);
+                    System.out.println("Predicted final product score: " + SimilarityList.getLast());
+                    System.out.println("Predicted points: " + ratings);
                     ratings.addFirst(newNode.CustomerNo);
                     file.PointList.add(ratings);
                 }
                 case "3" ->
-                    // 3) Her bir ürün için ortalama derecelendirme puanını hesaplayarak yazdırma.
+                    // 3)Print by calculating the average rating score for each product.
                         calculateAndPrintAverageRatings(file);
                 case "4" ->
-                    // 4) Her bir ürün için sadece ülkesi "Turkey" olan müşterileri dikkate alarak
-                    // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+                    // 4) Printing by calculating the average rating score for each product
+                    // taking into account only customers whose country is "Turkey".
                         calculateAndPrintAverageRatingsForTurkey(file, file.Customers);
                 case "5" ->
-                    // 5) Her bir ürün için ülkesi "Turkey" dışındaki değerler olan müşterileri
-                    // dikkate alarak elde edilen ortalama derecelendirme puanını hesaplayarak
-                    // yazdırma.
+                    // 5) Print by calculating the average rating score for each product
+                    // taking into account customers whose country is other than "Turkey"
                         calculateAndPrintAverageRatingsForNonTurkish(file, file.Customers);
                 case "6" ->
 
-                    // 6) Her bir ürün için sadece mesleği "Doctor" olan müşteriler dikkate alınarak
-                    // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+                    // 6) Printing by calculating the average rating score for each product
+                    // taking into account only customers whose profession is "Doctor"
                         calculateAndPrintAverageRatingsForDoctors(file, file.Customers);
                 case "7" ->
-                    // 7) Müşteri bilgileri bağlı listesini baştan sonra ekrana yazdırma.
+                    // 7) Printing the customer information linked list from start to finish.
                         file.Customers.Writer();
                 case "8" ->
-                    // 8) İki boyutlu diziyi ekrana yazdırma.
+                    // 8) Printing a two-dimensional array to the screen.
                         printRatingsArray(file);
             }
             printMenu();
@@ -88,7 +87,7 @@ public class Main {
         }
     }
 
-    // 3) Her bir ürün için ortalama derecelendirme puanını hesaplayarak yazdırma.
+    // 3) Print by calculating the average rating score for each product.
     static void calculateAndPrintAverageRatings(FileReader file) {
         for (int i = 0; i < file.NumberOfProducts; i++) {
             double sum = 0;
@@ -96,12 +95,12 @@ public class Main {
                 sum += file.PointList.get(j).get(i + 1);
             }
             double averageRating = sum / file.PointList.size();
-            System.out.println("Ürün " + (i + 1) + " için ortalama puan: " + averageRating);
+            System.out.println("Average score for product  " + (i + 1)  + averageRating);
         }
     }
 
-    // 4) Her bir ürün için sadece ülkesi "Turkey" olan müşterileri dikkate alarak
-    // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+    // 4)  Printing by calculating the average rating score for each product
+    // taking into account only customers whose country is "Turkey"
     static void calculateAndPrintAverageRatingsForTurkey(FileReader file,Linked Customer) {
         int turkeyCustomerCount = 0;
         double[] sumRatings = new double[file.NumberOfProducts];
@@ -119,13 +118,12 @@ public class Main {
         }
         for (int i = 0; i < file.NumberOfProducts; i++) {
             double averageRating = sumRatings[i] / turkeyCustomerCount;
-            System.out.println("Ürün " + (i + 1) + " için Türkiye'deki müşterilerin ortalama puanı: " + averageRating);
+            System.out.println("Average rating from customers in Turkey for product  :" + (i + 1) +  averageRating);
         }
     }
 
-    // 5) Her bir ürün için ülkesi "Turkey" dışındaki değerler olan müşterileri
-    // dikkate alarak elde edilen ortalama derecelendirme puanını hesaplayarak
-    // yazdırma.
+    // 5) Print by calculating the average rating score for each product
+    //  taking into account customers whose country is other than "Turkey"
     static void calculateAndPrintAverageRatingsForNonTurkish(FileReader file,Linked Customer) {
         int nonTurkishCustomerCount = 0;
         double[] sumRatings = new double[file.NumberOfProducts];
@@ -144,12 +142,12 @@ public class Main {
         for (int i = 0; i < file.NumberOfProducts; i++) {
             double averageRating = sumRatings[i] / nonTurkishCustomerCount;
             System.out.println(
-                    "Ürün " + (i + 1) + " için Türkiye dışındaki müşterilerin ortalama puanı: " + averageRating);
+                    "Average rating from customers outside Türkiye for product : " + (i + 1) +  averageRating);
         }
     }
 
-    // 6) Her bir ürün için sadece mesleği "Doctor" olan müşteriler dikkate alınarak
-    // elde edilen ortalama derecelendirme puanını hesaplayarak yazdırma.
+    // 6) Printing by calculating the average rating score for each product
+    // taking into account only customers whose profession is "Doctor"
     static void calculateAndPrintAverageRatingsForDoctors(FileReader file,Linked Customer) {
         int doctorCustomerCount = 0;
         double[] sumRatings = new double[file.NumberOfProducts];
@@ -167,11 +165,11 @@ public class Main {
         }
         for (int i = 0; i < file.NumberOfProducts; i++) {
             double averageRating = sumRatings[i] / doctorCustomerCount;
-            System.out.println("Ürün " + (i + 1) + " için doktor müşterilerin ortalama puanı: " + averageRating);
+            System.out.println("Doctor customers' average rating for product 5: " + (i + 1) +  averageRating);
         }
     }
 
-    // 8) İki boyutlu diziyi ekrana yazdırma.
+    // 8) Printing a two-dimensional array to the screen.
     static void printRatingsArray(FileReader file) {
         for (int i = 0; i < file.PointList.size(); i++) {
             for (int j = 0; j < file.NumberOfProducts+1; j++) {
@@ -181,20 +179,20 @@ public class Main {
         }
     }
     static void printMenu(){
-        System.out.println("1) Dosyadaki verileri okuyup ilgili veri yapılarını oluşturmak.\n" +
-                "2) Klavyeden yeni bir müşteri girişi sağlanması (müşteri sayısı 200'ü aşamayacaktır). Diğer deyiş\n" +
-                "ile girilen verilerin ilgili veri yapılarına eklenmesi gerekmektedir ancak müşterinin sadece ilk (n-1)\n" +
-                "ürün hakkında puanlama yapmasına izin verilecek, son ürün ile ilgili puan tahmin ile bulunacaktır.\n" +
-                "Tahmin ile bulunan değer ekrana yazdırılacaktır.\n" +
-                "3) Her bir ürün için o ürüne ait ortalama derecelendirme puanını hesaplayarak yazdırma.\n" +
-                "4) Her bir ürün için sadece ülkesi \"Turkey\" olan müşterileri dikkate alarak elde edilen ortalama\n" +
-                "derecelendirme puanını hesaplayarak yazdırma.\n" +
-                "5) Her bir ürün için ülkesi \"Turkey\" dışındaki değerler olan müşterileri dikkate alarak elde edilen\n" +
-                "ortalama derecelendirme puanını hesaplayarak yazdırma.\n" +
-                "6) Her bir ürün için sadece mesleği \"Doctor\" olan müşteriler dikkate alınarak elde edilen ortalama\n" +
-                "derecelendirme puanını hesaplayarak yazdırma.\n" +
-                "7) Müşteri bilgileri bağlı listesini baştan sonra ekrana yazdırma.\n" +
-                "8) İki boyutlu diziyi ekrana yazdırma.\n"+
+        System.out.println("1) Reading the data in the file and creating the relevant data structures.\n" +
+                "2) Entry of a new customer from the keyboard (the number of customers cannot exceed 200).\n" +
+                "In other words, the entered data must be added to the relevant data structures,but\n" +
+                "the customer will only be allowed to score the first (n-1) product, and\n" +
+                "the score for the last product will be found by guessing. The value found by guessing will be printed on the screen.\n" +
+                "3) Calculate and print the average rating score for each product.\n" +
+                "4) Printing by calculating the average rating score for each product,\n" +
+                "taking into account only customers whose country is \"Turkey\".\n" +
+                "5) Printing by calculating the average rating score for each product,\n" +
+                "taking into account customers whose country is other than \"Turkey\".\n" +
+                "6) Printing by calculating the average rating score for each product,\n" +
+                "taking into account only customers whose profession is "Doctor".\n" +
+                "7) Printing the customer information linked list from start to finish.\n" +
+                "8) Printing a two-dimensional array to the screen.\n"+
                 "0) Exit"
                 );
     }
