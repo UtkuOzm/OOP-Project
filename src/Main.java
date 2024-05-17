@@ -9,7 +9,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input= " ";
         while (!input.equals("0")) {
-            printMenu();
             switch (input) {
                 case "1" -> file.reader();
 
@@ -20,29 +19,34 @@ public class Main {
                     int counter = 1;
                     while (temp.next != null) {
                         counter++;
-                        temp.next = temp;
+                        temp = temp.next;
                     }
                     Node newNode = new Node();
                     temp.next = newNode;
                     newNode.CustomerNo = counter + 1;
                     System.out.print("Adı: ");
-                    newNode.customerData.setName(scanner.nextLine());
+                    String name=scanner.nextLine();
+                    newNode.customerData.setName(name);
 
                     System.out.print("Soyadı: ");
-                    newNode.customerData.setSurname(scanner.nextLine());
+                    String surname=scanner.nextLine();
+                    newNode.customerData.setSurname(surname);
 
                     System.out.print("Ülke: ");
-                    newNode.customerData.setCountry(scanner.nextLine());
+                    String country=scanner.nextLine();
+                    newNode.customerData.setCountry(country);
 
                     System.out.print("Şehir: ");
-                    newNode.customerData.setCity(scanner.nextLine());
+                    String city=scanner.nextLine();
+                    newNode.customerData.setCity(city);
 
                     System.out.print("Meslek: ");
-                    newNode.customerData.setOccupation(scanner.nextLine());
+                    String occupation=scanner.nextLine();
+                    newNode.customerData.setOccupation(occupation);
 
                     // Klavyeden ilk (n-1) ürünler için puanlama yapılması
                     ArrayList<Integer> ratings = new ArrayList<>();
-                    for (int i = 0; i < file.NumberOfProducts; i++) {
+                    for (int i = 0; i < file.NumberOfProducts-1; i++) {
                         System.out.print("Ürün " + (i + 1) + " için puan: ");
                         ratings.add(Integer.parseInt(scanner.nextLine()));
                     }
@@ -78,6 +82,8 @@ public class Main {
                     // 8) İki boyutlu diziyi ekrana yazdırma.
                         printRatingsArray(file);
             }
+            printMenu();
+            System.out.print("Please Enter a Number: ");
             input=scanner.nextLine();
         }
     }
@@ -168,7 +174,7 @@ public class Main {
     // 8) İki boyutlu diziyi ekrana yazdırma.
     static void printRatingsArray(FileReader file) {
         for (int i = 0; i < file.PointList.size(); i++) {
-            for (int j = 0; j < file.NumberOfProducts; j++) {
+            for (int j = 0; j < file.NumberOfProducts+1; j++) {
                 System.out.print(file.PointList.get(i).get(j) + " ");
             }
             System.out.println();
@@ -188,6 +194,8 @@ public class Main {
                 "6) Her bir ürün için sadece mesleği \"Doctor\" olan müşteriler dikkate alınarak elde edilen ortalama\n" +
                 "derecelendirme puanını hesaplayarak yazdırma.\n" +
                 "7) Müşteri bilgileri bağlı listesini baştan sonra ekrana yazdırma.\n" +
-                "8) İki boyutlu diziyi ekrana yazdırma.");
+                "8) İki boyutlu diziyi ekrana yazdırma.\n"+
+                "0) Exit"
+                );
     }
 }
