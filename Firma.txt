@@ -1,7 +1,7 @@
 5,A,B,C,D,E
 1,Ali,Ceviz,Turkey,Isparta,Computer Engineer
 3,4,3,5,1
-2,John,Smith,USA,New Jersey,Doctor
+2,John;Smith!USA&New Jersey,Doctor
 5,2,1,4,3
 3,Veli,Tuz,Turkey,Ankara,Doctor
 4,3,4,4,2

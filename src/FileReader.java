@@ -20,18 +20,18 @@ public class FileReader {
 
             Scanner scanner = new Scanner(file);
             String line = scanner.nextLine();
-            String[] firstLine=line.split(",");
+            String[] firstLine=line.split("[^A-Za-z0-9\s]+|\r\n");
             NumberOfProducts=Integer.parseInt(firstLine[0]);
             List<String> NamesOfProducts=new ArrayList<>();
             for (int i = 1; i < firstLine.length; i++){
                 NamesOfProducts.add(firstLine[i]);
             }
             line = scanner.nextLine();
-            String[] FirstCustomerLine=line.split(",");
+            String[] FirstCustomerLine=line.split("[^A-Za-z0-9\s]+|\r\n");
             Customers.addHead(Integer.parseInt(FirstCustomerLine[0]),new CustomerData(FirstCustomerLine[1],FirstCustomerLine[2],FirstCustomerLine[3],FirstCustomerLine[4],FirstCustomerLine[5]));
             line = scanner.nextLine();
             System.out.println(line);
-            String[] RatingLine=line.split(",");
+            String[] RatingLine=line.split("[^A-Za-z0-9\s]+|\r\n");
             ArrayList<Integer> FirstList = new ArrayList<>();
             FirstList.add(Integer.parseInt(FirstCustomerLine[0]));
             for (String rating:RatingLine){
@@ -40,10 +40,10 @@ public class FileReader {
             PointList.add(FirstList);
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                String[] CustomerLine=line.split(",");
+                String[] CustomerLine=line.split("[^A-Za-z0-9\s]+|\r\n");
                 Customers.addLast(Integer.parseInt(CustomerLine[0]),new CustomerData(CustomerLine[1],CustomerLine[2],CustomerLine[3],CustomerLine[4],CustomerLine[5]));
                 line = scanner.nextLine();
-                RatingLine=line.split(",");
+                RatingLine=line.split("[^A-Za-z0-9\s]+|\r\n");
                 FirstList = new ArrayList<>();
                 FirstList.add(Integer.parseInt(CustomerLine[0]));
                 for (String rating:RatingLine){
