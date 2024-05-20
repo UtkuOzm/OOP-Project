@@ -30,7 +30,6 @@ public class FileReader {
             String[] FirstCustomerLine=line.split("[^A-Za-z0-9\s]+|\r\n");
             Customers.addHead(Integer.parseInt(FirstCustomerLine[0]),new CustomerData(FirstCustomerLine[1],FirstCustomerLine[2],FirstCustomerLine[3],FirstCustomerLine[4],FirstCustomerLine[5]));
             line = scanner.nextLine();
-            System.out.println(line);
             String[] RatingLine=line.split("[^A-Za-z0-9\s]+|\r\n");
             ArrayList<Integer> FirstList = new ArrayList<>();
             FirstList.add(Integer.parseInt(FirstCustomerLine[0]));
@@ -50,16 +49,11 @@ public class FileReader {
                     FirstList.add(Integer.parseInt(rating));
                 }
                 PointList.add(FirstList);
-                System.out.println(line);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Dosya bulunamadı: " + fileRoot);
             e.printStackTrace();
-        }
-        Customers.Writer();
-        for (ArrayList rating:PointList){
-            System.out.println(rating);
         }
 
     }
