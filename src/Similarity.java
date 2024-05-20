@@ -3,6 +3,7 @@ public class Similarity {
 
     public static void similartyCalc(FileReader file,ArrayList<Integer> ratings,ArrayList<Integer> SimilarityList){
     int minSimilarity=999999;
+    //Finds maximum similarity with formula
         for(int i=0;i<file.PointList.size();i++){
         int similarity=0;
         for(int j=1;j<file.NumberOfProducts;j++){
@@ -19,6 +20,7 @@ public class Similarity {
             SimilarityList.add(file.PointList.get(i).getFirst());
         }
     }
+        //Adds last point the list according to similarity
     int aveRating=0;
         if (SimilarityList.size()==1){
         ratings.addLast(file.PointList.get(SimilarityList.getFirst()-1).get(file.NumberOfProducts));
